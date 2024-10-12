@@ -1,7 +1,8 @@
-baseURL = 'https://embrays-technologies.netlify.app/' # <- Replace with your actual base URL
+baseURL = '/blogs/' # <- Replace with your actual base URL
 languageCode = 'en-us'
 title = 'Embrays Technologies'
 theme = 'pehtheme-hugo'
+relativeURLs = false
 
 pagination.pagerSize = 10
 summaryLength = '20'
