@@ -1,4 +1,4 @@
-baseURL = 'https://embrays-technologies.netlify.app/blogs/' # <- Replace with your actual base URL
+baseURL = '/blogs/' # <- Replace with your actual base URL
 languageCode = 'en-us'
 title = 'Embrays Technologies'
 theme = 'pehtheme-hugo'
