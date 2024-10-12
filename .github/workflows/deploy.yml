@@ -1,0 +1,21 @@
+name: Trigger blogTest Build
+
+# Trigger this workflow on a push to the main branch of the Hugo repo
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  trigger-blogTest:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Send a repository dispatch event to blogTest repo
+      - name: Trigger blogTest workflow
+        run: |
+          curl -X POST \
+          -H "Accept: application/vnd.github.everest-preview+json" \
+          -H "Authorization: token ${{ secrets.GH_PAT }}" \
+          https://api.github.com/repos/jayshreee10/blogTest/dispatches \
+          -d '{"event_type": "hugo_update"}'
