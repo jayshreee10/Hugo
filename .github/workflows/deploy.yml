@@ -1,21 +1,33 @@
-name: Trigger blogTest Build
+name: Build and Deploy Hugo
 
-# Trigger this workflow on a push to the main branch of the Hugo repo
 on:
   push:
     branches:
       - main
 
 jobs:
-  trigger-blogTest:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      # Step 1: Send a repository dispatch event to blogTest repo
-      - name: Trigger blogTest workflow
+      # Step 1: Checkout Hugo Repository
+      - name: Checkout Hugo Repository
+        uses: actions/checkout@v3
+
+      # Step 2: Install Hugo
+      - name: Install Hugo
+        run: |
+          sudo apt-get install hugo
+
+      # Step 3: Build the Hugo site
+      - name: Build Hugo Site
+        run: |
+          hugo  # This command generates the Hugo site in the 'public' folder
+
+      # Step 4: Trigger BlogTest Workflow
+      - name: Trigger BlogTest Workflow
         run: |
           curl -X POST \
-          -H "Accept: application/vnd.github.everest-preview+json" \
-          -H "Authorization: token ${{ secrets.GH_PAT }}" \
-          https://api.github.com/repos/jayshreee10/blogTest/dispatches \
-          -d '{"event_type": "hugo_update"}'
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.GH_PAT }}" \
+            https://api.github.com/repos/jayshreee10/blogTest/dispatches \
+            -d '{"event_type": "hugo-update"}'
